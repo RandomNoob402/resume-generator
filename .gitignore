@@ -1,0 +1,33 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Virtual Environment ---
+.venv/
+env/
+venv/
+
+# --- IDE junk ---
+.vscode/
+.idea/
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Build artifacts ---
+*.log
+*.pdf
+*.bak
+
+# --- Flask ---
+instance/
+
+# --- WeasyPrint cache ---
+.weasyprint/
+
+# --- Node/web junk (just in case) ---
+node_modules/
+dist/

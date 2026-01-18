@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>✨ Professional Resume Generator</h1>
+        <p>Create a stunning resume in minutes</p>
+    </div>
+
+    <div class="container">
+        <div class="form-section">
+            <div class="form-header">
+                <h2>📝 Resume Details</h2>
+                <p>Fill in your information below</p>
+            </div>
+
+            <div class="form-content">
+                <form id="resumeForm">
+                    <!-- Template Selection -->
+                    <div class="form-group">
+                        <label for="templateSelector">Resume Template</label>
+                        <div class="template-selector" id="templateSelector" role="radiogroup" aria-label="Select resume template">
+                            <div class="template-option active" data-template="modern" role="radio" aria-checked="true" tabindex="0">
+                                <div class="icon" aria-hidden="true">🎨</div>
+                                <div class="name">Modern</div>
+                            </div>
+                            <div class="template-option" data-template="classic" role="radio" aria-checked="false" tabindex="0">
+                                <div class="icon" aria-hidden="true">📄</div>
+                                <div class="name">Classic</div>
+                            </div>
+                            <div class="template-option" data-template="creative" role="radio" aria-checked="false" tabindex="0">
+                                <div class="icon" aria-hidden="true">🚀</div>
+                                <div class="name">Creative</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color Selection -->
+                    <div class="form-group">
+                        <label for="colorPicker">Accent Color</label>
+                        <div class="color-picker" id="colorPicker" role="radiogroup" aria-label="Select accent color">
+                            <div class="color-option active" style="background: #2563eb;" data-color="#2563eb" role="radio" aria-checked="true" tabindex="0" aria-label="Blue"></div>
+                            <div class="color-option" style="background: #7c3aed;" data-color="#7c3aed" role="radio" aria-checked="false" tabindex="0" aria-label="Purple"></div>
+                            <div class="color-option" style="background: #dc2626;" data-color="#dc2626" role="radio" aria-checked="false" tabindex="0" aria-label="Red"></div>
+                            <div class="color-option" style="background: #059669;" data-color="#059669" role="radio" aria-checked="false" tabindex="0" aria-label="Green"></div>
+                            <div class="color-option" style="background: #d97706;" data-color="#d97706" role="radio" aria-checked="false" tabindex="0" aria-label="Orange"></div>
+                            <div class="color-option" style="background: #0891b2;" data-color="#0891b2" role="radio" aria-checked="false" tabindex="0" aria-label="Cyan"></div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="section-header">
+                        <div class="section-title">👤 Personal Information</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe" autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="john.doe@email.com" autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" autocomplete="tel">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" placeholder="New York, NY" autocomplete="address-level2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn</label>
+                        <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/johndoe" autocomplete="url">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website/Portfolio</label>
+                        <input type="url" id="website" name="website" placeholder="johndoe.com" autocomplete="url">
+                    </div>
+
+                    <!-- Professional Summary -->
+                    <div class="section-header">
+                        <div class="section-title">📋 Professional Summary</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-with-hint">
+                            <label for="summary">Summary</label>
+                            <span class="hint">2-3 sentences about your background</span>
+                        </div>
+                        <textarea id="summary" name="summary" placeholder="Experienced software engineer with 5+ years building scalable web applications..." autocomplete="off"></textarea>
+                    </div>
+
+                    <!-- Work Experience -->
+                    <div class="section-header">
+                        <div class="section-title">💼 Work Experience</div>
+                        <button type="button" class="add-button" id="addExperienceBtn" aria-label="Add work experience">+ Add</button>
+                    </div>
+
+                    <div id="experienceContainer">
+                        <div class="dynamic-section">
+                            <div class="section-controls">
+                                <button type="button" class="icon-btn btn-danger" onclick="removeSection(this)">🗑️</button>
+                            </div>
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" name="exp_title[]" placeholder="Senior Software Engineer" autocomplete="organization-title">
+                            </div>
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" name="exp_company[]" placeholder="Tech Corp Inc." autocomplete="organization">
+                            </div>
+                            <div class="form-group">
+                                <label>Duration</label>
+                                <input type="text" name="exp_duration[]" placeholder="Jan 2020 - Present" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <div class="label-with-hint">
+                                    <label>Description</label>
+                                    <span class="hint">Use • for bullet points</span>
+                                </div>
+                                <textarea name="exp_description[]" class="rich-textarea" placeholder="• Led development of key features
+• Improved system performance by 40%
+• Mentored junior developers" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="section-header">
+                        <div class="section-title">🎓 Education</div>
+                        <button type="button" class="add-button" id="addEducationBtn" aria-label="Add education">+ Add</button>
+                    </div>
+
+                    <div id="educationContainer">
+                        <div class="dynamic-section">
+                            <div class="section-controls">
+                                <button type="button" class="icon-btn btn-danger" onclick="removeSection(this)">🗑️</button>
+                            </div>
+                            <div class="form-group">
+                                <label>Degree</label>
+                                <input type="text" name="edu_degree[]" placeholder="Bachelor of Science in Computer Science" autocomplete="organization-title">
+                            </div>
+                            <div class="form-group">
+                                <label>Institution</label>
+                                <input type="text" name="edu_institution[]" placeholder="University of Technology" autocomplete="organization">
+                            </div>
+                            <div class="form-group">
+                                <label>Year</label>
+                                <input type="text" name="edu_year[]" placeholder="2016 - 2020" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="section-header">
+                        <div class="section-title">⚡ Skills</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-with-hint">
+                            <label for="skills">Skills</label>
+                            <span class="hint">Comma-separated</span>
+                        </div>
+                        <textarea id="skills" name="skills" placeholder="Python, JavaScript, React, Node.js, SQL, AWS, Docker, Git" autocomplete="off"></textarea>
+                    </div>
+
+                    <!-- Projects -->
+                    <div class="section-header">
+                        <div class="section-title">🚀 Projects</div>
+                        <button type="button" class="add-button" id="addProjectBtn" aria-label="Add project">+ Add</button>
+                    </div>
+
+                    <div id="projectContainer"></div>
+
+                    <!-- Certifications -->
+                    <div class="section-header">
+                        <div class="section-title">🏆 Certifications</div>
+                        <button type="button" class="add-button" id="addCertificationBtn" aria-label="Add certification">+ Add</button>
+                    </div>
+
+                    <div id="certificationContainer"></div>
+
+                    <!-- Languages -->
+                    <div class="section-header">
+                        <div class="section-title">🌍 Languages</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-with-hint">
+                            <label for="languages">Languages</label>
+                            <span class="hint">e.g., English (Native), Spanish (Fluent)</span>
+                        </div>
+                        <textarea id="languages" name="languages" placeholder="English (Native), Spanish (Fluent), French (Intermediate)" autocomplete="off"></textarea>
+                    </div>
+
+                    <!-- Actions -->
+                    <div style="margin-top: 32px; display: flex; gap: 12px;">
+                        <button type="button" class="btn-secondary" id="saveBtn">💾 Save</button>
+                        <button type="button" class="btn-secondary" id="loadBtn">📂 Load</button>
+                        <button type="button" class="btn-secondary" id="clearBtn">🗑️ Clear</button>
+                    </div>
+
+                    <button type="submit" class="btn-block btn-success" style="margin-top: 12px;">📥 Download PDF</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-header">
+                <h2>👁️ Live Preview</h2>
+                <div class="preview-actions">
+                    <button type="button" id="refreshPreviewBtn">🔄 Refresh</button>
+                </div>
+            </div>
+
+            <div class="preview-content">
+                <div class="resume-preview" id="resumePreview">
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <h3>Your resume preview will appear here</h3>
+                        <p>Start filling out the form to see your resume take shape</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="save-indicator" id="saveIndicator" role="alert" aria-live="polite">Saved!</div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
