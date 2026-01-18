@@ -28,5 +28,5 @@ COPY . .
 # Railway sets $PORT automatically
 ENV PORT=8000
 
-# IMPORTANT: if your main file is app2.py, change app:app -> app2:app
+# Your main file is app.py (from the logs), and Flask app is `app`
 CMD gunicorn --bind 0.0.0.0:$PORT app:app
