@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y \
     libgdk-pixbuf-2.0-0 \
     libglib2.0-0 \
     shared-mime-info \
+    gir1.2-pango-1.0 \
+    gir1.2-gdkpixbuf-2.0 \
+    gir1.2-rsvg-2.0 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
